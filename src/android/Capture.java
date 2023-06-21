@@ -134,6 +134,10 @@ public class Capture extends CordovaPlugin {
         this.applicationId = (String) BuildHelper.getBuildConfigValue(this.cordova.getActivity(), "APPLICATION_ID");
         this.applicationId = preferences.getString("applicationId", this.applicationId);
 
+        if (this.applicationId == null) {
+            this.applicationId = this.cordova.getActivity().getApplicationContext().getPackageName();
+        }
+
         if (action.equals("getFormatData")) {
             JSONObject obj = getFormatData(args.getString(0), args.getString(1));
             callbackContext.success(obj);
